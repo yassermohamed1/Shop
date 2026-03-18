@@ -50,10 +50,10 @@
                 @foreach($cart->get() as $item)
                 <div class="row align-items-center p-3 mb-3 border rounded" id="{{$item->id}}">
                     <div class="col-lg-1 col-md-1 col-12">
-                        <a href="{{  route('products.show',$item->product->id) }}"><img src="{{$item->product->image_url}}" alt="#"></a>
+                        <a href="{{  route('products.show',$item->product) }}"><img src="{{$item->product->image_url}}" alt="#"></a>
                     </div>
                     <div class="col-lg-4 col-md-3 col-12">
-                        <h5 class="product-name"><a href="{{  route('products.show',$item->product->id) }}">{{$item->product->name}}</a></h5>
+                        <h5 class="product-name"><a href="{{  route('products.show',$item->product) }}">{{$item->product->name}}</a></h5>
                         <p class="product-des">
                             <span><em>Type:</em> Mirrorless</span>
                             <span><em>Color:</em> Black</span>
@@ -96,7 +96,7 @@
                             <li class="fw-bold">You Pay <span class="float-end">{{Currency::format($cart->total())}}</span></li>
                         </ul>
                         <div class="d-flex gap-2">
-                            <a href="checkout.html" class="btn btn-primary flex-fill">Checkout</a>
+                            <a href="{{route('checkout.show')}}" class="btn btn-primary flex-fill">Checkout</a>
                             <a href="product-grids.html" class="btn btn-outline-secondary flex-fill">Continue shopping</a>
                         </div>
                     </div>

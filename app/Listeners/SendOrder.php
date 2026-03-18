@@ -3,13 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\OrderCreated;
-use App\Models\Cart;
-use App\Models\Product;
+use App\Models\User;
+use App\Notifications\OrderCreatedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\DB;
 
-class DecrementQuantity
+class SendOrder
 {
     /**
      * Create the event listener.
@@ -25,9 +24,10 @@ class DecrementQuantity
     public function handle(OrderCreated $event)
     {
         $order = $event->order;
-        foreach ($order->products as $product) {
 
-            $product->decrement('quantity', $product->pivot->quantity);
-        }
+        $user = User::first();
+
+
+        $user->notify(new OrderCreatedNotification($order));
     }
 }

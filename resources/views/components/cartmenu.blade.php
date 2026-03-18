@@ -7,22 +7,42 @@
      <div class="shopping-item">
          <div class="dropdown-cart-header">
              <span>{{$items->count()}}</span>
-             <a href="{{route('cart.index')}}">View Cart</a>
+             <a href="{{route('Cart.index')}}">View Cart</a>
          </div>
          <ul class="shopping-list">
              @foreach($items as $item)
-
              <li>
-                 <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                         class="lni lni-close"></i></a>
+
+                 <form action="{{ route('Cart.destroy', $item) }}" method="POST">
+                     @csrf
+                     @method('DELETE')
+
+                     <button class="remove" title="Remove this item">
+                         <i class="lni lni-close"></i>
+                     </button>
+                 </form>
+
                  <div class="cart-img-head">
-                     <a class="cart-img" href="{{  route('products.show',$item->product->slug) }}"><img
-                             src="{{$item->product->image_url}}" alt="#"></a>
+                     <a class="cart-img" href="{{ route('products.show',$item->product->slug) }}">
+                         <img src="{{$item->product->image_url}}" alt="#">
+                     </a>
                  </div>
+
                  <div class="content">
-                     <h4><a href="product-details.html">{{$item->product->name}}</a></h4>
-                     <p class="quantity">{{$item->quantity}}x - <span class="amount">{{Currency::format($item->product->price)}}</span></p>
+                     <h4>
+                         <a href="{{ route('products.show',$item->product->slug) }}">
+                             {{$item->product->name}}
+                         </a>
+                     </h4>
+
+                     <p class="quantity">
+                         {{$item->quantity}}x -
+                         <span class="amount">
+                             {{ Currency::format($item->product->price) }}
+                         </span>
+                     </p>
                  </div>
+
              </li>
              @endforeach
          </ul>

@@ -85,7 +85,6 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
                                         <div class="col">
                                             <input type="text" name="addr[billing][state]" class="form-control" placeholder="State">
                                         </div>
@@ -137,14 +136,13 @@
 
                                     <div class="row mb-3">
                                         <div class="col">
-                                            <select name="addr[billing][country]" class="form-control">
+                                            <select name="addr[shipping][country]" class="form-control">
                                                 <option value="">Select Country</option>
                                                 @foreach($countries as $country)
                                                 <option value="{{ $country }}">{{ $country }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-
                                         <div class="col">
                                             <input type="text" name="addr[shipping][state]" class="form-control" placeholder="State">
                                         </div>

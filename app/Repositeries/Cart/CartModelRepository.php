@@ -12,17 +12,13 @@ use Illuminate\Support\Str;
 
 class CartModelRepository implements CartRepository
 {
-    /**
-     * جلب كل عناصر السلة للـ cookie الحالي
-     */
+
     public function get(): Collection
     {
-        return Cart::get();
+        return Cart::with('product')->get();
     }
 
-    /**
-     * إضافة منتج جديد للسلة
-     */
+
     public function add(Product $product, $quantity = 1)
     {
         $item = Cart::where('product_id', '=', $product->id)
@@ -42,16 +38,13 @@ class CartModelRepository implements CartRepository
     /**
      * تحديث كمية منتج في السلة
      */
-    public function update(Product $product, $quantity)
+    public function update($id, $quantity)
     {
-        return Cart::where('product_id', '=', $product->id)
+        return Cart::where('id', '=', $id)
 
             ->update(['quantity' => $quantity]);
     }
 
-    /**
-     * حذف منتج من السلة
-     */
     public function delete($id)
     {
         return Cart::where('id', '=', $id)
@@ -60,26 +53,19 @@ class CartModelRepository implements CartRepository
             ->delete();
     }
 
-    /**
-     * تفريغ السلة بالكامل
-     */
+
     public function empty()
     {
         return Cart::query()->delete();
     }
 
-    /**
-     * حساب إجمالي سعر السلة
-     */
+   
     public function total(): float
     {
-        return (float) Cart::join('products', 'products.id', '=', 'carts.product_id')
-            ->selectRaw('SUM(products.price * carts.quantity) as total')
-            ->value('total');
+        return Cart::with('product')
+            ->get()
+            ->sum(function ($item) {
+                return $item->product->price * $item->quantity;
+            });
     }
-
-
-    /**
-     * جلب أو إنشاء cookie_id للسلة
-     */
 }

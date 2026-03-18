@@ -53,15 +53,14 @@ class CheckoutController extends Controller
                 $address['type'] = $type;
                 $order->addresses()->create($address);
             }
-
-            $cart->empty();
-
             event(new OrderCreated($order));
+
 
             DB::commit();
         } catch (\Exception $e) {
 
             DB::rollBack();
+           
 
             dd($e->getMessage(), $e->getLine(), $e->getFile());
         }

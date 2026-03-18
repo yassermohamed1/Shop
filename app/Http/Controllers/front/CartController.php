@@ -25,7 +25,7 @@ class CartController extends Controller
     public function index(CartRepository $cart)
     {
 
-         
+
         return view('front.cart', [
             'cart' => $cart,
 
@@ -42,6 +42,8 @@ class CartController extends Controller
      */
     public function store(Request $request, CartRepository $cart)
     {
+
+
         $request->validate([
             'product_id' => ['required', 'int', 'exists:products,id'],
 
@@ -52,19 +54,21 @@ class CartController extends Controller
 
         $cart->add($product, $request->post('quantity') ?? 1);
 
-        return redirect()->route('cart.index')->with('success', 'product added to cart');
+
+        return redirect()->route('Cart.index')->with('success', 'product added to cart');
     }
 
 
 
- 
-    public function update(CartRepository $cart,Request $request, $id)
+
+    public function update(CartRepository $cart, Request $request, $id)
     {
         $request->validate([
 
             'quantity' => ['nullable', 'int', 'min:1']
 
         ]);
+        $cart->update($id, $request->post('quantity'));
 
 
         return response()->json([
@@ -80,5 +84,6 @@ class CartController extends Controller
     {
 
         $cart->delete($id);
+        return redirect()->route('Cart.index')->with('success', 'product deleted to cart');
     }
 }

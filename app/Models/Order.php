@@ -21,7 +21,7 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault(['name' => 'Guest Customer']);
+        return $this->belongsTo(User::class);
     }
 
     // علاقة المنتجات

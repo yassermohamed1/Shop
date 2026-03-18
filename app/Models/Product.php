@@ -22,9 +22,9 @@ class Product extends Model
   {
     return $this->belongsTo(Category::class, 'category_id', 'id');
   }
-  public function scopeActive(Builder $query)
+  public function scopeActive(Builder $builder)
   {
-    return $query->where('active', true);
+    return $builder->where('active', true);
   }
   // Acceesore
   public function getImageUrlAttribute()

@@ -8,13 +8,20 @@
          <span class="new-tag">{{$product->new}}</span>
          @endif
          <div class="button">
-             <a href="{{  route('cart.index',$product->id) }}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+             <form action="{{ route('Cart.store') }}" method="POST">
+                 @csrf
+                 <input type="hidden" name="product_id" value="{{$product->id}}">
+                 <button type="submit" class="btn">
+                     <i class="lni lni-cart"></i> Add to Cart
+                 </button>
+             </form>
          </div>
+
      </div>
      <div class="product-info">
          <span class="category">{{$product->category->name}}</span>
          <h4 class="title">
-             <a href="{{ route('products.show', $product->id) }}">
+             <a href="{{ route('products.show', $product->slug) }}">
                  {{ $product->name }}
              </a>
 

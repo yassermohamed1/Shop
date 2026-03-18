@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Events\OrderCreated;
 use App\Listeners\DecrementQuantity;
 use App\Listeners\EmptyCart;
+use App\Listeners\SendOrder;
 use Illuminate\Support\ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -15,8 +16,9 @@ class EventServiceProvider extends ServiceProvider
     public $listen = [
         OrderCreated::class => [
             DecrementQuantity::class,
-            EmptyCart::class,
-           
+            SendOrder::class,
+            // EmptyCart::class,
+
         ]
     ];
     public function register(): void
