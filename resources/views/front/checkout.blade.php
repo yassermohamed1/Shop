@@ -158,39 +158,14 @@
                         </div>
 
                         <!-- Payment -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingPayment">
-                                <button class="accordion-button collapsed" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#collapsePayment">
-                                    Payment Info
-                                </button>
-                            </h2>
 
-                            <div id="collapsePayment" class="accordion-collapse collapse"
-                                data-bs-parent="#checkoutAccordion">
-                                <div class="accordion-body">
-
-                                    <input type="text" class="form-control mb-3" placeholder="Cardholder Name">
-                                    <input type="text" class="form-control mb-3" placeholder="Card Number">
-
-                                    <div class="row mb-3">
-                                        <div class="col"><input type="text" class="form-control" placeholder="MM"></div>
-                                        <div class="col"><input type="text" class="form-control" placeholder="YYYY"></div>
-                                        <div class="col"><input type="text" class="form-control" placeholder="CVC"></div>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-success">
-                                        Pay Now
-                                    </button>
-
-                                </div>
-                            </div>
-                        </div>
+                        <button type="submit" class="btn btn-success">
+                            Pay Now
+                        </button>
 
                     </div>
                 </form>
             </div>
-
             <!-- RIGHT -->
             <div class="col-lg-4 mt-4">
 

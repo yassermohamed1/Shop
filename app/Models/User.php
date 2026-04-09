@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'stores_id',
+        'store_id',
         'order_id'
     ];
 
@@ -54,6 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function store()
     {
-        return $this->belongsTo(Store::class, 'stores_id');
+        return $this->belongsTo(Store::class, 'store_id');
     }
 }

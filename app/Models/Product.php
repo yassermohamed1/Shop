@@ -17,10 +17,14 @@ class Product extends Model
    *
    * @var array
    */
-  protected $fillable = ['name', 'slug', 'description', 'compare_price', 'price', 'category_id', 'quantity', 'image', 'active'];
+  protected $fillable = ['name', 'slug', 'description', 'compare_price', 'price', 'category_id', 'quantity', 'image', 'store_id', 'active'];
   public function category()
   {
     return $this->belongsTo(Category::class, 'category_id', 'id');
+  }
+  public function store()
+  {
+    return $this->belongsTo(Store::class, 'store_id');
   }
   public function scopeActive(Builder $builder)
   {

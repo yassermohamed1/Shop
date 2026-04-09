@@ -8,7 +8,6 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.svg') }}" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
@@ -88,18 +87,33 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
+                            @auth
                             <div class="user">
                                 <i class="lni lni-user"></i>
-                                Hello
+                                {{ Auth::user()->name }}
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a href="login.html">Sign In</a>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout').submit()">Sign Out</a>
+                                </li>
+                                <form action="{{ route('logout') }}" id="logout" method="post" style="display:none">
+                                    @csrf
+                                </form>
+                            </ul>
+                            @else
+                            <div class="user">
+                                <i class="lni lni-user"></i>
+                                {{ __('Hello')}}
+                            </div>
+                            <ul class="user-login">
+                                <li>
+                                    <a href="{{ route('login') }}">{{ Lang::get('Sign In') }}</a>
                                 </li>
                                 <li>
-                                    <a href="register.html">Register</a>
+                                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             </ul>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -450,7 +464,7 @@
     </a>
 
     <!-- ========================= JS here ========================= -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/tiny-slider.js') }}"></script>
     <script src="{{ asset('assets/js/glightbox.min.js') }}"></script>

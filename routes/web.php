@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\front\CartController;
 use App\Http\Controllers\front\CheckoutController;
 use App\Http\Controllers\front\HomeController;
+use App\Http\Controllers\front\PaymentController;
 use App\Http\Controllers\front\ProductController;
 // use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductController as ControllersProductController;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
 
@@ -48,4 +49,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('checkout', [CheckoutController::class, 'store'])
         ->name('checkout.store');
+    Route::get('orders/{order}/pay', [PaymentController::class, 'create'])
+        ->name('orders.payments.create');
+    Route::post('orders/{order}/stripe/paymeny-intent', [PaymentController::class, 'createStripePaymentIntent'])
+        ->name('stripe.paymentIntent.create');
+
+    Route::get('orders/{order}/pay/stripe/callback', [PaymentController::class, 'confirm'])
+        ->name('stripe.return');
 });

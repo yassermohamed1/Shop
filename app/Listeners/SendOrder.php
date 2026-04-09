@@ -23,11 +23,16 @@ class SendOrder
      */
     public function handle(OrderCreated $event)
     {
+        //$store = $event->order->store;
         $order = $event->order;
 
-        $user = User::first();
+        $user = User::where('store_id', $order->store_id)->first();
+        // dd($user);
+        if ($user) {
+            $user->notify(new OrderCreatedNotification($order));
+        }
+        // $users = User::where('store_id', $order->store_id)->get();
+        // Notification::send($users, new OrderCreatedNotification($order));
 
-
-        $user->notify(new OrderCreatedNotification($order));
     }
 }

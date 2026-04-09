@@ -15,7 +15,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public $listen = [
         OrderCreated::class => [
-            DecrementQuantity::class,
+
             SendOrder::class,
             // EmptyCart::class,
 

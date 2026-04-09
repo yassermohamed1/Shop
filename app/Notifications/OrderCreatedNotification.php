@@ -5,6 +5,7 @@ namespace App\Notifications;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -19,37 +20,29 @@ class OrderCreatedNotification extends Notification
     {
         $this->order = $order;
     }
-
     public function via(object $notifiable): array
     {
-
-        return ['database', 'broadcast'];
+        return ['mail'];
     }
-
-    public function toMail(object $notifiable): MailMessage
+    public function toMail($notifiable)
     {
+        $addr = $this->order->billingaddress;
+
         return (new MailMessage)
-            ->subject("New order # {$this->order->number}")
-            ->line("A new order (#{$this->order->number})")
-            ->action('View Order', url('/orders/' . $this->order->id))
-            ->line('Thank you for using our application!');
-    }
+            ->subject("New Order #{$this->order->number}")
 
-    public function toDatabase(object $notifiable): array
-    {
-        return [
-            'order_id' => $this->order->id,
-            'order_number' => $this->order->number,
-            'message' => 'New order created'
-        ];
+            ->greeting("Hi {$notifiable->name},")
+            ->line("A new order (#{$this->order->number}) created by {$addr->name}")
+            ->action('View Order', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     public function toBroadcast($notifiable)
     {
-        return [
+        return new BroadcastMessage([
             'order_id' => $this->order->id,
             'order_number' => $this->order->number,
             'message' => 'New order created'
-        ];
+        ]);
     }
 }
