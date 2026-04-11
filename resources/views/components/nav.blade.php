@@ -1,22 +1,31 @@
-<li class="sidebar-list">
-    @foreach($items as $t)
-    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-        <i class="{{$t['icon']}}"></i>
-        <span>{{$t['title']}}</span>
-    </a>
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="false">
 
-    @if(!empty($t['children']))
-    <ul class="sidebar-submenu">
-        @foreach($t['children'] as $child)
-        <li>
-            @if(isset($child['route']))
-            <a href="{{ route($child['route']) }}">{{ $child['title'] }}</a>
-            @elseif(isset($child['url']))
-            <a href="{{ $child['url'] }}">{{ $child['title'] }}</a>
-            @endif
+        @foreach($items as $item)
+        <li class="nav-item">
+
+            <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
+                class="nav-link {{ isset($item['active']) && Route::is($item['active']) ? 'active' : '' }}">
+
+                <i class="{{ $item['icon'] }}"></i>
+
+                <p>
+                    {{ $item['title'] }}
+
+                    @isset($item['badge'])
+                    <span class="right badge badge-danger">
+                        {{ $item['badge'] }}
+                    </span>
+                    @endisset
+                </p>
+
+            </a>
+
         </li>
         @endforeach
+
     </ul>
-    @endif
-    @endforeach
-</li>
+</nav>
