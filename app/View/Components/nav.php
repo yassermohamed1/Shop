@@ -37,13 +37,13 @@ class Nav extends Component
     protected function prepareItems($items)
     {
         $user = Auth::user();
-       
+
         foreach ($items as $key => $item) {
             if (isset($item['ability']) && !$user->can = ($item['ability'])) {
                 unset($items[$key]);
             }
         }
-     
+      
         return $items;
     }
 }

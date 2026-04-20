@@ -19,7 +19,10 @@ class NotificationsMenu extends Component
      */
     public function __construct($count = 10)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
+
+
         $this->notifications = $user->notifications()->take($count)->get();
         $this->newCount = $user->unreadNotifications()->count();
     }

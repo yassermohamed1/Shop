@@ -11,8 +11,10 @@ use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\UsersController;
+use App\Http\Controllers\Front\Auth\TwoFactorAuthentcationController;
 use App\Http\Controllers\front\CartController;
 use App\Http\Controllers\front\CheckoutController;
+use App\Http\Controllers\Front\CurrencyConverterController;
 use App\Http\Controllers\front\HomeController;
 use App\Http\Controllers\front\PaymentController;
 use App\Http\Controllers\front\ProductController;
@@ -39,31 +41,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 // require __DIR__ . '/auth.php';
-Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard');
-Route::get('/categories/trash', [CategoriesController::class, 'trash'])
-    ->name('categories.trash');
-Route::put('categories/{category}/restore', [CategoriesController::class, 'restore'])
-    ->name('categories.restore');
-Route::delete('categories/{category}/force-delete', [CategoriesController::class, 'forceDelete'])
-    ->name('categories.force-delete');
-Route::get('products/import', [ImportProductsController::class, 'create'])
-    ->name('products.import');
-Route::post('products/import', [ImportProductsController::class, 'store']);
-Route::resources([
-    'products' => ProductsController::class,
-    'categories' => CategoriesController::class,
-    'roles' => RolesController::class,
-    'users' => UsersController::class,
-    'admins' => AdminsController::class,
-]);
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
 
     Route::get('/products', [ProductController::class, 'index'])
         ->name('products.index');
@@ -85,5 +69,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('orders/{order}/pay/stripe/callback', [PaymentController::class, 'confirm'])
         ->name('stripe.return');
+
+    Route::get('auth/user/2fa', [TwoFactorAuthentcationController::class, 'index'])
+        ->name('front.2fa');
+    Route::post('currency', [CurrencyConverterController::class, 'store'])
+        ->name('currency.store');
 });
 require __DIR__ . '/dashboard.php';

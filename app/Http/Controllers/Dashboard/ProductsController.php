@@ -90,7 +90,7 @@ class ProductsController extends Controller
     {
         $this->authorize('update', $product);
 
-        $product->update( $request->except('tags') );
+        $product->update($request->except('tags'));
 
 
         $tags = json_decode($request->post('tags'));
@@ -127,5 +127,4 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
         $this->authorize('delete', $product);
     }
-
 }

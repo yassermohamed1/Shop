@@ -22,7 +22,7 @@ class OrderCreatedNotification extends Notification
     }
     public function via(object $notifiable): array
     {
-        return ['mail','database'];
+        return ['database', 'broadcast'];
     }
     public function toMail($notifiable)
     {
@@ -41,7 +41,7 @@ class OrderCreatedNotification extends Notification
         $addr = $this->order->billingAddress;
 
         return [
-            'body' => "A new order (#{$this->order->number}) created by {$addr->name} from {$addr->country_name}.",
+            'body' => "A new order (#{$this->order->number}) created by {$addr->name}.",
             'icon' => 'fas fa-file',
             'url' => url('/dashboard'),
             'order_id' => $this->order->id,
@@ -50,9 +50,10 @@ class OrderCreatedNotification extends Notification
 
     public function toBroadcast($notifiable)
     {
+        
         $addr = $this->order->billingAddress;
         return new BroadcastMessage([
-            'body' => "A new order (#{$this->order->number}) created by {$addr->name} from {$addr->country_name}.",
+            'body' => "A new order (#{$this->order->number}) created by {$addr->name}.",
             'icon' => 'fas fa-file',
             'url' => url('/dashboard'),
             'order_id' => $this->order->id,

@@ -23,7 +23,7 @@ Route::group([
     Route::get('/', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    
+
 
     // Route::get('/categories/{category}', [CategoriesController::class, 'show'])
     //     ->name('categories.show')
@@ -35,7 +35,7 @@ Route::group([
         ->name('categories.restore');
     Route::delete('categories/{category}/force-delete', [CategoriesController::class, 'forceDelete'])
         ->name('categories.force-delete');
-    
+
     //Route::resource('/categories', CategoriesController::class);
     //Route::resource('/products', ProductsController::class);
 
@@ -55,5 +55,3 @@ Route::group([
 // Route::middleware('auth')->as('dashboard.')->prefix('dashboard')->group(function() {
 
 // });
-
-

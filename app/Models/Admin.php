@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\HasRoles;
 use Illuminate\Database\Eloquent\Model;
 // use App\Concerns\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,7 @@ class Admin extends User
 {
     use HasFactory,
         Notifiable,
+        HasRoles,
         HasApiTokens;
 
     protected $fillable = [
