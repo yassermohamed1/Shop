@@ -2,6 +2,7 @@
 
 // use App\Http\Controllers\CategoryController;
 
+use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Dashboard\AdminsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
@@ -75,4 +76,8 @@ Route::middleware('auth')->group(function () {
     Route::post('currency', [CurrencyConverterController::class, 'store'])
         ->name('currency.store');
 });
+Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])
+    ->name('auth.socilaite.redirect');
+Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])
+    ->name('auth.socilaite.callback');
 require __DIR__ . '/dashboard.php';

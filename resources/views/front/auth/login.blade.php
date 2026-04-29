@@ -15,9 +15,9 @@
 
                             <!-- Social Login Buttons -->
                             <div class="d-flex gap-2 mb-3">
-                                <a href="#" class="btn btn-primary flex-fill"><i class="lni lni-facebook"></i> Facebook</a>
+                                <a href="{{ route('auth.socilaite.redirect', 'facebook') }}" class="btn btn-primary flex-fill"><i class="lni lni-facebook"></i> Facebook</a>
                                 <a href="#" class="btn btn-info flex-fill"><i class="lni lni-twitter-original"></i> Twitter</a>
-                                <a href="#" class="btn btn-danger flex-fill"><i class="lni lni-google"></i> Google</a>
+                                <a href="{{route('auth.socilaite.redirect', 'google')}}" class="btn btn-danger flex-fill"><i class="lni lni-google"></i> Google</a>
                             </div>
 
                             <div class="text-center my-3">
